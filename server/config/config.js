@@ -5,5 +5,5 @@ module.exports = {
   db: {
     uri: 'mongodb://brock.clayton:1pokemon@ds141704.mlab.com:41704/mongo_db_bootcamp', //place the URI of your mongo database here.
   }, 
-  port: process.env.PORT || 3000
+  port: process.env.PORT || "8080"
 };

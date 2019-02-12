@@ -39,10 +39,27 @@ exports.read = function(req, res) {
 /* Update a listing */
 exports.update = function(req, res) {
   var listing = req.listing;
+  
+  //res.status(200).send('OK');
 
   /** TODO **/
   /* Replace the article's properties with the new properties found in req.body */
   /* Save the article */
+  
+  listing.name = req.body.name;
+  listing.code = req.body.code;
+  listing.address = req.body.address;
+  //listing.coordinates = req.body.coordinates;
+  //listing.coordinates.longitude = req.body.coordinates.longitude;
+  
+  listing.save(function(err) {
+    if (err) throw err;
+	
+	res.send(listing);
+    //res.status(200).end('OK');
+  });
+  
+  
 };
 
 /* Delete a listing */
@@ -51,12 +68,38 @@ exports.delete = function(req, res) {
 
   /** TODO **/
   /* Remove the article */
+  
+  listing.remove(function(err) {
+    if (err) throw err;
+
+	res.status(200).end('OK');
+  });
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
 exports.list = function(req, res) {
   /** TODO **/
   /* Your code here */
+  
+  /*Listing.find({}, function(err, listings) {
+  if (err) throw err;
+
+  // object of all the users
+  console.log(listings);
+});*/
+
+  Listing.find({},function(err, listing) {
+    if(err) {
+      res.status(400).send(err);
+    }
+	
+	else {
+	   res.json(listing);
+	   //console.log(listing.length)
+       res.status(200).end('OK');
+    }
+	
+  }).sort('code').exec(function(err, docs) {});
 };
 
 /* 
